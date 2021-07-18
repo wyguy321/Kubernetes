@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: process-item-4
+  namespace: free-service
+  labels:
+    jobgroup: jobexample
+spec:
+  template:
+    metadata:
+      name: jobexample
+      labels:
+        jobgroup: jobexample
+    spec:
+      containers:
+      - name: free-servicejob2
+        image: public.ecr.aws/h2g4h5d9/mp12
+        env:
+          - name: TYPE
+            value: "ff"
+          - name: DATASET
+            value: "mnist"
+        command: ["python3",  "classify.py"]
+      restartPolicy: Never
